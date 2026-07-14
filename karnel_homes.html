@@ -1,0 +1,1211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KARNEL HOMES | Premium Residential Builder</title>
+    <meta name="description" content="KARNEL HOMES delivers exceptional residential builds with a seamless process from design to completion. Custom homes, knockdown rebuilds, and complete project management.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #1a1a1a;
+            --secondary: #2d2d2d;
+            --accent: #c9a96e;
+            --accent-hover: #b8954f;
+            --text-light: #f5f5f5;
+            --text-muted: #a0a0a0;
+            --bg-light: #fafafa;
+            --bg-dark: #0a0a0a;
+            --border: #e5e5e5;
+            --transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background: var(--bg-light);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            z-index: 1000;
+            padding: 1.5rem 4%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+        .navbar.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            padding: 1rem 4%;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+        }
+        .navbar.scrolled .logo, .navbar.scrolled .nav-links a { color: var(--primary); }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--text-light);
+            text-decoration: none;
+            letter-spacing: 2px;
+            transition: var(--transition);
+        }
+        .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            position: relative;
+            transition: var(--transition);
+        }
+        .nav-links a::after {
+            content: ''; position: absolute;
+            bottom: -6px; left: 0;
+            width: 0; height: 1px;
+            background: var(--accent);
+            transition: var(--transition);
+        }
+        .nav-links a:hover::after { width: 100%; }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none; border: none;
+            cursor: pointer; z-index: 1001;
+        }
+        .mobile-menu-btn span {
+            display: block; width: 28px; height: 2px;
+            background: var(--text-light);
+            margin: 6px 0;
+            transition: var(--transition);
+        }
+        .navbar.scrolled .mobile-menu-btn span { background: var(--primary); }
+
+        /* Hero */
+        .hero {
+            position: relative;
+            height: 100vh; min-height: 700px;
+            display: flex; align-items: center; justify-content: center;
+            overflow: hidden;
+        }
+        .hero-video-bg {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+        }
+        .hero-video-bg::before {
+            content: '';
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><rect fill="%23000" opacity="0.3" width="100" height="100"/><text x="50" y="50" font-family="Inter" font-size="4" fill="%23fff" opacity="0.4" text-anchor="middle" dy=".3em">PROJECT SHOWCASE VIDEO PLACEHOLDER</text></svg>') center/cover no-repeat;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .hero-overlay {
+            position: absolute; top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 100%);
+        }
+        .hero-content {
+            position: relative; z-index: 2;
+            text-align: center; max-width: 900px;
+            padding: 0 2rem;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        .hero-content h1 {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-weight: 500;
+            letter-spacing: -1px;
+        }
+        .hero-content p {
+            font-size: clamp(1rem, 1.5vw, 1.25rem);
+            color: rgba(255,255,255,0.85);
+            margin-bottom: 3rem;
+            font-weight: 300;
+            line-height: 1.8;
+        }
+        .hero-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            font-size: 0.85rem; font-weight: 600;
+            letter-spacing: 2px; text-transform: uppercase;
+            text-decoration: none; border-radius: 0;
+            cursor: pointer; transition: var(--transition);
+            display: inline-block; border: none;
+        }
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:hover {
+            background: var(--accent-hover);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(201, 169, 110, 0.3);
+        }
+        .btn-outline {
+            background: transparent; color: var(--text-light);
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        .btn-outline:hover {
+            background: var(--text-light); color: var(--primary);
+            border-color: var(--text-light);
+        }
+
+        .scroll-indicator {
+            position: absolute; bottom: 3rem; left: 50%;
+            transform: translateX(-50%); z-index: 2;
+            animation: bounce 2s infinite;
+        }
+        .scroll-indicator span { display: block; width: 1px; height: 60px; background: rgba(255,255,255,0.4); margin: 0 auto; }
+        .scroll-indicator::after {
+            content: 'SCROLL'; font-size: 0.65rem;
+            letter-spacing: 3px; color: rgba(255,255,255,0.6);
+            display: block; margin-top: 0.5rem;
+        }
+
+        /* Sections */
+        section { padding: 8rem 4%; }
+        .section-header {
+            text-align: center; max-width: 700px;
+            margin: 0 auto 5rem;
+        }
+        .section-header h2 {
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            margin-bottom: 1.5rem; color: var(--primary);
+        }
+        .section-header p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.8; }
+        .section-label {
+            font-size: 0.75rem; letter-spacing: 4px;
+            text-transform: uppercase; color: var(--accent);
+            font-weight: 600; margin-bottom: 1rem; display: block;
+        }
+
+        /* About */
+        .about { background: var(--bg-light); }
+        .about-grid {
+            display: grid; grid-template-columns: 1fr 1fr;
+            gap: 5rem; align-items: center;
+            max-width: 1200px; margin: 0 auto;
+        }
+        .about-content h2 { font-size: clamp(2rem, 3vw, 2.8rem); margin-bottom: 1.5rem; }
+        .about-content p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.9; margin-bottom: 2.5rem; }
+        .about-features { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+        .about-feature { display: flex; align-items: center; gap: 0.75rem; font-size: 0.95rem; font-weight: 500; }
+        .about-feature svg { width: 20px; height: 20px; color: var(--accent); flex-shrink: 0; }
+        .about-image { position: relative; height: 500px; background: linear-gradient(135deg, #e8e8e8 0%, #d0d0d0 100%); overflow: hidden; }
+        .about-image::after {
+            content: ''; position: absolute;
+            top: 20px; left: 20px; right: -20px; bottom: -20px;
+            border: 2px solid var(--accent); z-index: -1;
+        }
+
+        /* Process */
+        .process { background: var(--bg-dark); color: var(--text-light); }
+        .process .section-header h2, .process .section-header p { color: var(--text-light); }
+        .process .section-header p { opacity: 0.7; }
+        .process-timeline {
+            display: flex; justify-content: space-between;
+            max-width: 1200px; margin: 0 auto;
+            position: relative; gap: 2rem;
+        }
+        .process-timeline::before {
+            content: ''; position: absolute;
+            top: 40px; left: 10%; right: 10%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, var(--accent), transparent);
+            opacity: 0.3;
+        }
+        .process-step {
+            flex: 1; text-align: center;
+            position: relative; padding-top: 3rem;
+            opacity: 0; transform: translateY(30px);
+            transition: var(--transition);
+        }
+        .process-step.visible { opacity: 1; transform: translateY(0); }
+        .step-number {
+            position: absolute; top: 0; left: 50%;
+            transform: translateX(-50%);
+            width: 80px; height: 80px; border-radius: 50%;
+            background: var(--accent);
+            display: flex; align-items: center; justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem; font-weight: 700; color: #fff; z-index: 2;
+        }
+        .process-step h3 { font-size: 1.3rem; margin: 1.5rem 0 1rem; color: var(--text-light); }
+        .process-step p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+        /* Projects */
+        .projects { background: var(--bg-light); padding-bottom: 4rem; overflow: hidden; }
+        .projects-header {
+            display: flex; justify-content: space-between; align-items: flex-end;
+            max-width: 1400px; margin: 0 auto 4rem; padding: 0 4%;
+        }
+        .projects-header .section-header { text-align: left; margin: 0; max-width: 500px; }
+        .slider-controls { display: flex; gap: 1rem; }
+        .slider-btn {
+            width: 50px; height: 50px;
+            border: 1px solid var(--border); background: #fff;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            transition: var(--transition);
+        }
+        .slider-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+        .slider-btn svg { width: 20px; height: 20px; }
+
+        .projects-slider {
+            display: flex; gap: 2rem; padding: 0 4%;
+            overflow-x: auto; scroll-behavior: smooth;
+            scroll-snap-type: x mandatory;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+            cursor: grab;
+        }
+        .projects-slider::-webkit-scrollbar { display: none; }
+        .projects-slider:active { cursor: grabbing; }
+
+        .project-card {
+            flex: 0 0 400px; scroll-snap-align: start;
+            background: #fff; overflow: hidden;
+            box-shadow: var(--shadow); transition: var(--transition);
+        }
+        .project-card:hover { transform: translateY(-10px); }
+        .project-image {
+            height: 300px;
+            background: linear-gradient(135deg, #e0e0e0 0%, #c0c0c0 100%);
+            position: relative; overflow: hidden;
+        }
+        .project-image::after {
+            content: attr(data-placeholder);
+            position: absolute; top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 0.75rem; letter-spacing: 2px;
+            color: #888; text-transform: uppercase;
+            text-align: center; white-space: pre-line;
+        }
+        .project-info { padding: 2rem; }
+        .project-number {
+            font-size: 0.7rem; letter-spacing: 3px;
+            color: var(--accent); font-weight: 600; margin-bottom: 0.5rem;
+        }
+        .project-info h3 { font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .project-meta {
+            display: flex; gap: 1.5rem;
+            margin-bottom: 1rem; font-size: 0.85rem; color: var(--text-muted);
+        }
+        .project-meta span { display: flex; align-items: center; gap: 0.4rem; }
+        .project-info p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 1.5rem; }
+        .project-link {
+            font-size: 0.8rem; letter-spacing: 2px; text-transform: uppercase;
+            color: var(--primary); text-decoration: none; font-weight: 600;
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            transition: var(--transition);
+        }
+        .project-link:hover { color: var(--accent); }
+        .project-link::after { content: '->'; transition: var(--transition); }
+        .project-link:hover::after { transform: translateX(5px); }
+
+        /* Why Choose */
+        .why-choose { background: #fff; }
+        .features-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            gap: 2rem; max-width: 1200px; margin: 0 auto;
+        }
+        .feature-card {
+            padding: 3rem 2rem; text-align: center;
+            border: 1px solid var(--border);
+            transition: var(--transition);
+            position: relative; overflow: hidden;
+        }
+        .feature-card::before {
+            content: ''; position: absolute;
+            bottom: 0; left: 0; width: 100%; height: 3px;
+            background: var(--accent);
+            transform: scaleX(0); transform-origin: left;
+            transition: var(--transition);
+        }
+        .feature-card:hover::before { transform: scaleX(1); }
+        .feature-card:hover {
+            box-shadow: var(--shadow); transform: translateY(-5px);
+            border-color: transparent;
+        }
+        .feature-icon {
+            width: 60px; height: 60px; margin: 0 auto 1.5rem;
+            background: rgba(201, 169, 110, 0.1); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--accent);
+        }
+        .feature-icon svg { width: 28px; height: 28px; }
+        .feature-card h3 { font-size: 1.2rem; margin-bottom: 1rem; }
+        .feature-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; }
+
+        /* Gallery */
+        .gallery { background: var(--bg-dark); color: var(--text-light); }
+        .gallery .section-header h2 { color: var(--text-light); }
+        .gallery .section-header p { color: var(--text-muted); }
+        .gallery-grid {
+            display: grid; grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(3, 250px);
+            gap: 1rem; max-width: 1400px; margin: 0 auto;
+        }
+        .gallery-item {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 100%);
+            position: relative; overflow: hidden;
+            cursor: pointer; transition: var(--transition);
+        }
+        .gallery-item:hover { transform: scale(0.98); }
+        .gallery-item::after {
+            content: attr(data-label);
+            position: absolute; bottom: 1.5rem; left: 1.5rem;
+            font-size: 0.75rem; letter-spacing: 2px;
+            text-transform: uppercase; color: rgba(255,255,255,0.6);
+        }
+        .gallery-item.large { grid-column: span 2; grid-row: span 2; }
+        .gallery-item.wide { grid-column: span 2; }
+
+        /* Testimonials */
+        .testimonials { background: var(--bg-light); }
+        .testimonials-slider { max-width: 800px; margin: 0 auto; position: relative; }
+        .testimonial-card { text-align: center; padding: 3rem; display: none; }
+        .testimonial-card.active { display: block; animation: fadeIn 0.6s ease; }
+        .stars { color: var(--accent); font-size: 1.2rem; margin-bottom: 2rem; letter-spacing: 4px; }
+        .testimonial-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            line-height: 1.8; color: var(--primary);
+            margin-bottom: 2rem; font-style: italic;
+        }
+        .testimonial-author { font-size: 1rem; font-weight: 600; color: var(--primary); }
+        .testimonial-project { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.3rem; }
+        .testimonial-dots { display: flex; justify-content: center; gap: 0.75rem; margin-top: 2rem; }
+        .dot {
+            width: 10px; height: 10px; border-radius: 50%;
+            background: var(--border); cursor: pointer;
+            transition: var(--transition); border: none;
+        }
+        .dot.active { background: var(--accent); transform: scale(1.2); }
+
+        /* Contact */
+        .contact {
+            background: linear-gradient(135deg, var(--bg-dark) 0%, #1a1a2e 100%);
+            color: var(--text-light); position: relative; overflow: hidden;
+        }
+        .contact::before {
+            content: ''; position: absolute;
+            top: -50%; right: -20%;
+            width: 600px; height: 600px;
+            background: radial-gradient(circle, rgba(201, 169, 110, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .contact .section-header h2 { color: var(--text-light); }
+        .contact .section-header p { color: var(--text-muted); }
+        .contact-form {
+            max-width: 900px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;
+        }
+        .form-group { position: relative; }
+        .form-group.full-width { grid-column: span 3; }
+        .form-group.half-width { grid-column: span 1; }
+        .form-group label {
+            display: block; font-size: 0.75rem;
+            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--text-muted); margin-bottom: 0.5rem;
+        }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; padding: 1rem 0;
+            background: transparent; border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: var(--text-light);
+            font-family: 'Inter', sans-serif; font-size: 1rem;
+            transition: var(--transition); outline: none;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { border-bottom-color: var(--accent); }
+        .form-group input::placeholder, .form-group textarea::placeholder { color: rgba(255,255,255,0.3); }
+        .form-group select { cursor: pointer; appearance: none; }
+        .form-group select option { background: var(--bg-dark); color: var(--text-light); }
+        .form-group textarea { resize: vertical; min-height: 120px; }
+        .contact-form .btn-primary {
+            grid-column: span 3; justify-self: center;
+            margin-top: 1rem; padding: 1.2rem 4rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--bg-dark); color: var(--text-light);
+            padding: 5rem 4% 2rem;
+        }
+        .footer-grid {
+            display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 4rem; max-width: 1200px; margin: 0 auto 4rem;
+        }
+        .footer-brand .logo {
+            color: var(--text-light); font-size: 1.8rem;
+            margin-bottom: 1.5rem; display: inline-block;
+        }
+        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; max-width: 300px; }
+        .footer-column h4 {
+            font-size: 0.8rem; letter-spacing: 2px;
+            text-transform: uppercase; margin-bottom: 1.5rem;
+            color: var(--text-light);
+        }
+        .footer-column ul { list-style: none; }
+        .footer-column ul li { margin-bottom: 0.75rem; }
+        .footer-column ul li a {
+            color: var(--text-muted); text-decoration: none;
+            font-size: 0.9rem; transition: var(--transition);
+        }
+        .footer-column ul li a:hover { color: var(--accent); }
+        .social-links { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        .social-links a {
+            width: 40px; height: 40px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex; align-items: center; justify-content: center;
+            color: var(--text-muted); text-decoration: none;
+            transition: var(--transition);
+        }
+        .social-links a:hover {
+            background: var(--accent); border-color: var(--accent); color: #fff;
+        }
+        .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,0.1);
+            padding-top: 2rem; text-align: center;
+            color: var(--text-muted); font-size: 0.85rem;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(40px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-15px); }
+            60% { transform: translateX(-50%) translateY(-7px); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .about-image { height: 350px; order: -1; }
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+            .process-timeline { flex-wrap: wrap; gap: 3rem; }
+            .process-timeline::before { display: none; }
+            .process-step { flex: 0 0 calc(50% - 1.5rem); }
+            .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-template-rows: repeat(4, 200px); }
+            .gallery-item.large { grid-column: span 2; grid-row: span 1; }
+            .gallery-item.wide { grid-column: span 2; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed; top: 0; right: -100%;
+                width: 70%; height: 100vh;
+                background: var(--bg-dark);
+                flex-direction: column;
+                justify-content: center; align-items: center;
+                transition: var(--transition); gap: 2rem;
+            }
+            .nav-links.active { right: 0; }
+            .nav-links a { font-size: 1rem; }
+            .mobile-menu-btn { display: block; }
+            .mobile-menu-btn.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 6px); }
+            .mobile-menu-btn.active span:nth-child(2) { opacity: 0; }
+            .mobile-menu-btn.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -6px); }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn { width: 100%; max-width: 280px; text-align: center; }
+            section { padding: 5rem 4%; }
+            .features-grid { grid-template-columns: 1fr; }
+            .process-step { flex: 0 0 100%; }
+            .project-card { flex: 0 0 300px; }
+            .gallery-grid { grid-template-columns: 1fr; grid-template-rows: repeat(6, 200px); }
+            .gallery-item.large, .gallery-item.wide { grid-column: span 1; grid-row: span 1; }
+            .contact-form { grid-template-columns: 1fr; }
+            .form-group.full-width, .form-group.half-width { grid-column: span 1; }
+            .contact-form .btn-primary { grid-column: span 1; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .projects-header { flex-direction: column; align-items: flex-start; gap: 2rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#" class="logo">KARNEL HOMES</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-video-bg"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Building Homes Designed Around Your Lifestyle</h1>
+            <p>KARNEL HOMES delivers exceptional residential builds with a seamless process from design to completion.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">Explore Our Projects</a>
+                <a href="#contact" class="btn btn-outline">Start Your Home Journey</a>
+            </div>
+        </div>
+        <div class="scroll-indicator"><span></span></div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="about-grid">
+            <div class="about-content">
+                <span class="section-label">About Us</span>
+                <h2>Building More Than Homes</h2>
+                <p>KARNEL HOMES specialises in creating beautifully designed homes with exceptional workmanship, transparent communication, and a stress-free building experience.</p>
+                <div class="about-features">
+                    <div class="about-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Experienced builders
+                    </div>
+                    <div class="about-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Quality craftsmanship
+                    </div>
+                    <div class="about-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Transparent contracts
+                    </div>
+                    <div class="about-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Complete project management
+                    </div>
+                    <div class="about-feature">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        Client-focused approach
+                    </div>
+                </div>
+            </div>
+            <div class="about-image"></div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process" id="services">
+        <div class="section-header">
+            <span class="section-label">Our Process</span>
+            <h2>Your Building Journey</h2>
+            <p>From your dream home idea to handing over the keys, KARNEL HOMES manages every step.</p>
+        </div>
+        <div class="process-timeline">
+            <div class="process-step">
+                <div class="step-number">01</div>
+                <h3>Initial Consultation</h3>
+                <p>Understand your vision, lifestyle requirements, and budget.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">02</div>
+                <h3>Design & Planning</h3>
+                <p>Work with designers and consultants to create your ideal home.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">03</div>
+                <h3>Approvals & Contracts</h3>
+                <p>Manage documentation, approvals, and fixed-price contracts.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">04</div>
+                <h3>Construction</h3>
+                <p>Professional construction management with regular updates.</p>
+            </div>
+            <div class="process-step">
+                <div class="step-number">05</div>
+                <h3>Handover</h3>
+                <p>Deliver your completed dream home.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section class="projects" id="projects">
+        <div class="projects-header">
+            <div class="section-header">
+                <span class="section-label">Portfolio</span>
+                <h2>Featured Projects</h2>
+                <p>Explore our collection of completed residential builds across Sydney and surrounding regions.</p>
+            </div>
+            <div class="slider-controls">
+                <button class="slider-btn" id="prevBtn" aria-label="Previous project">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="slider-btn" id="nextBtn" aria-label="Next project">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+            </div>
+        </div>
+        <div class="projects-slider" id="projectsSlider">
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 01
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 01</div>
+                    <h3>Modern Family Residence</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Sydney NSW</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Custom Home</span>
+                    </div>
+                    <p>A stunning contemporary family home featuring open-plan living, premium finishes, and seamless indoor-outdoor flow.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 02
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 02</div>
+                    <h3>Coastal Retreat</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Northern Beaches</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> New Build</span>
+                    </div>
+                    <p>Beachside luxury with floor-to-ceiling windows, timber accents, and panoramic ocean views throughout.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 03
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 03</div>
+                    <h3>Heritage Revival</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Inner West</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Knockdown Rebuild</span>
+                    </div>
+                    <p>Respecting heritage charm while delivering modern comfort in this beautifully restored family residence.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 04
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 04</div>
+                    <h3>Urban Sanctuary</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Eastern Suburbs</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Custom Home</span>
+                    </div>
+                    <p>A sophisticated urban dwelling with smart home integration and sustainable design principles.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 05
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 05</div>
+                    <h3>Hillside Manor</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Blue Mountains</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> New Build</span>
+                    </div>
+                    <p>Multi-level architecture designed to embrace the natural terrain and surrounding bushland views.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 06
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 06</div>
+                    <h3>Harbour View Estate</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Mosman</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Custom Home</span>
+                    </div>
+                    <p>Prestigious waterfront residence with private jetty, infinity pool, and world-class architectural design.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 07
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 07</div>
+                    <h3>Suburban Oasis</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Western Sydney</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Knockdown Rebuild</span>
+                    </div>
+                    <p>Transforming an older property into a modern family haven with spacious living and landscaped gardens.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 08
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 08</div>
+                    <h3>Minimalist Pavilion</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> North Shore</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Custom Home</span>
+                    </div>
+                    <p>Clean lines and expansive glass create a light-filled sanctuary that blurs the boundary between inside and out.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 09
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 09</div>
+                    <h3>Family Farmhouse</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Southern Highlands</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> New Build</span>
+                    </div>
+                    <p>Modern farmhouse aesthetics with wraparound verandah, country kitchen, and acreage living at its finest.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 10
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 10</div>
+                    <h3>Contemporary Duplex</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Parramatta</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Dual Occupancy</span>
+                    </div>
+                    <p>Intelligent dual-living design maximising space and privacy for multi-generational families.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 11
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 11</div>
+                    <h3>Lakeside Villa</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Central Coast</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Custom Home</span>
+                    </div>
+                    <p>Resort-style living with private lake access, outdoor entertaining pavilion, and luxury master suite.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 12
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 12</div>
+                    <h3>Modern Terrace</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Surry Hills</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Knockdown Rebuild</span>
+                    </div>
+                    <p>Inner-city sophistication with rooftop terrace, cellar, and cutting-edge sustainable technology.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 13
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 13</div>
+                    <h3>Coastal Hamptons</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Palm Beach</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> New Build</span>
+                    </div>
+                    <p>Classic Hamptons style meets Australian coastal living with shiplap cladding and expansive decks.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 14
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 14</div>
+                    <h3>Executive Residence</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Vaucluse</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Custom Home</span>
+                    </div>
+                    <p>Ultra-luxury executive home with home theatre, wine cellar, gymnasium, and smart automation throughout.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+            <div class="project-card">
+                <div class="project-image" data-placeholder="PROJECT 15
+IMAGE PLACEHOLDER"></div>
+                <div class="project-info">
+                    <div class="project-number">PROJECT 15</div>
+                    <h3>Green Living Home</h3>
+                    <div class="project-meta">
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Sutherland Shire</span>
+                        <span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg> Sustainable Build</span>
+                    </div>
+                    <p>Net-zero energy home featuring solar integration, rainwater harvesting, and passive design principles.</p>
+                    <a href="#" class="project-link">View Project</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Section -->
+    <section class="why-choose">
+        <div class="section-header">
+            <span class="section-label">Why Us</span>
+            <h2>Why Choose KARNEL HOMES</h2>
+            <p>We combine expertise, transparency, and dedication to deliver homes that exceed expectations.</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L2 7l10 5 10-5-10-5z"></path><path d="M2 17l10 5 10-5"></path><path d="M2 12l10 5 10-5"></path></svg>
+                </div>
+                <h3>Quality Construction</h3>
+                <p>Built with attention to detail and premium materials that stand the test of time.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                </div>
+                <h3>Transparent Pricing</h3>
+                <p>Clear contracts with no hidden surprises. Know exactly what you are investing in.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <h3>Complete Support</h3>
+                <p>Guidance throughout the entire building journey from concept to completion.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                </div>
+                <h3>Personalised Service</h3>
+                <p>Every home designed around the clients unique needs, lifestyle, and vision.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery">
+        <div class="section-header">
+            <span class="section-label">Gallery</span>
+            <h2>Our Work In Detail</h2>
+            <p>A glimpse into the quality and craftsmanship that defines every KARNEL HOMES build.</p>
+        </div>
+        <div class="gallery-grid">
+            <div class="gallery-item large" data-label="Exterior"></div>
+            <div class="gallery-item" data-label="Interior"></div>
+            <div class="gallery-item" data-label="Kitchen"></div>
+            <div class="gallery-item wide" data-label="Bathroom"></div>
+            <div class="gallery-item" data-label="Living Area"></div>
+            <div class="gallery-item" data-label="Construction"></div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section class="testimonials">
+        <div class="section-header">
+            <span class="section-label">Testimonials</span>
+            <h2>What Our Clients Say</h2>
+            <p>Hear from families who have trusted KARNEL HOMES with their dream home.</p>
+        </div>
+        <div class="testimonials-slider">
+            <div class="testimonial-card active">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">Working with KARNEL HOMES was an amazing experience from start to finish. Their attention to detail and commitment to quality exceeded our expectations at every stage.</p>
+                <p class="testimonial-author">Sarah & James Mitchell</p>
+                <p class="testimonial-project">Modern Family Residence, Sydney</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">The team made the entire process stress-free. From the initial consultation to handing over the keys, communication was clear and transparent throughout.</p>
+                <p class="testimonial-author">David & Emma Chen</p>
+                <p class="testimonial-project">Coastal Retreat, Northern Beaches</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">We could not be happier with our new home. The craftsmanship is exceptional and the fixed-price contract gave us complete peace of mind.</p>
+                <p class="testimonial-author">Michael & Lisa Thompson</p>
+                <p class="testimonial-project">Heritage Revival, Inner West</p>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+                <p class="testimonial-text">KARNEL HOMES understood our vision perfectly and delivered a home that truly reflects our lifestyle. Professional, reliable, and genuinely caring about the outcome.</p>
+                <p class="testimonial-author">Robert & Amanda Foster</p>
+                <p class="testimonial-project">Urban Sanctuary, Eastern Suburbs</p>
+            </div>
+        </div>
+        <div class="testimonial-dots">
+            <button class="dot active" data-index="0" aria-label="Testimonial 1"></button>
+            <button class="dot" data-index="1" aria-label="Testimonial 2"></button>
+            <button class="dot" data-index="2" aria-label="Testimonial 3"></button>
+            <button class="dot" data-index="3" aria-label="Testimonial 4"></button>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="section-header">
+            <span class="section-label">Get In Touch</span>
+            <h2>Ready To Build Your Dream Home?</h2>
+            <p>Take the first step towards your new home. Fill in the form below and our team will be in touch.</p>
+        </div>
+        <form class="contact-form" id="contactForm">
+            <div class="form-group half-width">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" placeholder="Your name" required>
+            </div>
+            <div class="form-group half-width">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+            </div>
+            <div class="form-group half-width">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your email address" required>
+            </div>
+            <div class="form-group half-width">
+                <label for="location">Location</label>
+                <input type="text" id="location" name="location" placeholder="Suburb / Area" required>
+            </div>
+            <div class="form-group half-width">
+                <label for="homeType">Type of Home</label>
+                <select id="homeType" name="homeType" required>
+                    <option value="">Select type</option>
+                    <option value="custom">Custom Home</option>
+                    <option value="knockdown">Knockdown Rebuild</option>
+                    <option value="new">New Build</option>
+                    <option value="duplex">Dual Occupancy</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="form-group half-width">
+                <label for="budget">Estimated Budget</label>
+                <select id="budget" name="budget" required>
+                    <option value="">Select range</option>
+                    <option value="500k-750k">$500K - $750K</option>
+                    <option value="750k-1m">$750K - $1M</option>
+                    <option value="1m-1.5m">$1M - $1.5M</option>
+                    <option value="1.5m-2m">$1.5M - $2M</option>
+                    <option value="2m+">$2M+</option>
+                </select>
+            </div>
+            <div class="form-group full-width">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us about your vision..."></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Book A Consultation</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">KARNEL HOMES</a>
+                <p>Building exceptional homes with a seamless process from design to completion. Your dream home journey starts here.</p>
+                <div class="social-links">
+                    <a href="#" aria-label="Facebook"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                    <a href="#" aria-label="Instagram"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
+                    <a href="#" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a>
+                    <a href="#" aria-label="Pinterest"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="8" x2="12" y2="21"></line><path d="M5 12H2a10 10 0 0 0 20 0h-3"></path></svg></a>
+                </div>
+            </div>
+            <div class="footer-column">
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Services</h4>
+                <ul>
+                    <li><a href="#">New Home Construction</a></li>
+                    <li><a href="#">Custom Home Builds</a></li>
+                    <li><a href="#">Knockdown Rebuilds</a></li>
+                    <li><a href="#">Design & Build</a></li>
+                    <li><a href="#">Project Management</a></li>
+                </ul>
+            </div>
+            <div class="footer-column">
+                <h4>Contact</h4>
+                <ul>
+                    <li><a href="mailto:info@karnelhomes.com.au">info@karnelhomes.com.au</a></li>
+                    <li><a href="tel:+61200000000">+61 2 0000 0000</a></li>
+                    <li><a href="#">Sydney, NSW, Australia</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 KARNEL HOMES. All rights reserved. | <a href="#" style="color: var(--text-muted);">Privacy Policy</a> | <a href="#" style="color: var(--text-muted);">Terms of Service</a></p>
+        </div>
+    </footer>
+
+    <script>
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navLinks = document.getElementById('navLinks');
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenuBtn.classList.toggle('active');
+            navLinks.classList.toggle('active');
+        });
+
+        // Close mobile menu on link click
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenuBtn.classList.remove('active');
+                navLinks.classList.remove('active');
+            });
+        });
+
+        // Projects slider
+        const slider = document.getElementById('projectsSlider');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+
+        prevBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: -420, behavior: 'smooth' });
+        });
+        nextBtn.addEventListener('click', () => {
+            slider.scrollBy({ left: 420, behavior: 'smooth' });
+        });
+
+        // Drag to scroll
+        let isDown = false;
+        let startX;
+        let scrollLeft;
+
+        slider.addEventListener('mousedown', (e) => {
+            isDown = true;
+            slider.style.cursor = 'grabbing';
+            startX = e.pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('mouseleave', () => { isDown = false; slider.style.cursor = 'grab'; });
+        slider.addEventListener('mouseup', () => { isDown = false; slider.style.cursor = 'grab'; });
+        slider.addEventListener('mousemove', (e) => {
+            if (!isDown) return;
+            e.preventDefault();
+            const x = e.pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Touch support
+        slider.addEventListener('touchstart', (e) => {
+            isDown = true;
+            startX = e.touches[0].pageX - slider.offsetLeft;
+            scrollLeft = slider.scrollLeft;
+        });
+        slider.addEventListener('touchend', () => { isDown = false; });
+        slider.addEventListener('touchmove', (e) => {
+            if (!isDown) return;
+            const x = e.touches[0].pageX - slider.offsetLeft;
+            const walk = (x - startX) * 2;
+            slider.scrollLeft = scrollLeft - walk;
+        });
+
+        // Testimonials slider
+        const testimonialCards = document.querySelectorAll('.testimonial-card');
+        const dots = document.querySelectorAll('.dot');
+        let currentTestimonial = 0;
+
+        function showTestimonial(index) {
+            testimonialCards.forEach(card => card.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            testimonialCards[index].classList.add('active');
+            dots[index].classList.add('active');
+            currentTestimonial = index;
+        }
+
+        dots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                showTestimonial(parseInt(dot.dataset.index));
+            });
+        });
+
+        // Auto-rotate testimonials
+        setInterval(() => {
+            currentTestimonial = (currentTestimonial + 1) % testimonialCards.length;
+            showTestimonial(currentTestimonial);
+        }, 6000);
+
+        // Process steps animation on scroll
+        const processSteps = document.querySelectorAll('.process-step');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, index * 200);
+                }
+            });
+        }, { threshold: 0.3 });
+
+        processSteps.forEach(step => observer.observe(step));
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your enquiry! Our team will be in touch shortly.');
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
